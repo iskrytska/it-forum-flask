@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Головна - IT Форум{% endblock %}
+
+{% block content %}
+<div class="home-container">
+    <h1>Вітаємо на IT Форумі, {{ username }}!</h1>
+    <p>Обмінюйтесь знаннями, ставте запитання, знаходьте однодумців.</p>
+
+    <div class="home-buttons">
+        <a href="{{ url_for('forum') }}" class="btn-primary">Перейти до форуму</a>
+        <a href="{{ url_for('logout') }}" class="btn-secondary">Вийти</a>
+    </div>
+
+    <section class="features">
+        <div class="feature">
+            <h3>Обговорення</h3>
+            <p>Створюйте нові теми та спілкуйтесь з іншими учасниками.</p>
+        </div>
+        <div class="feature">
+            <h3>Підтримка</h3>
+            <p>Отримуйте допомогу від досвідчених користувачів.</p>
+        </div>
+        <div class="feature">
+            <h3>Навчання</h3>
+            <p>Діліться своїми знаннями і навчайтесь новому щодня.</p>
+        </div>
+    </section>
+</div>
+{% endblock %}

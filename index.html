@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ t('home_title') }}</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: white;
+            background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1350&q=80') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .overlay {
+            background-color: rgba(0,0,0,0.6);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 600px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.3em;
+        }
+        p {
+            font-size: 1.4em;
+            margin-bottom: 1.2em;
+        }
+        a.button {
+            display: inline-block;
+            background-color: #007BFF;
+            padding: 12px 28px;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+        a.button:hover {
+            background-color: #0056b3;
+        }
+        .lang-switch {
+            position: fixed;
+            top: 15px;
+            right: 20px;
+        }
+        .lang-switch a {
+            color: white;
+            margin-left: 15px;
+            font-weight: bold;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        nav {
+            position: fixed;
+            top: 15px;
+            left: 20px;
+        }
+        nav a {
+            color: white;
+            margin-right: 15px;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        {% if user %}
+            <span>{{ t('welcome_user') }} {{ user }}</span>
+            <a href="{{ url_for('logout') }}">{{ t('logout') }}</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">{{ t('login') }}</a>
+            <a href="{{ url_for('register') }}">{{ t('register') }}</a>
+        {% endif %}
+    </nav>
+
+    <div class="lang-switch">
+        <a href="{{ url_for('change_lang', lang_code='uk') }}">UA</a> |
+        <a href="{{ url_for('change_lang', lang_code='en') }}">EN</a>
+    </div>
+
+    <div class="overlay">
+        <h1>{{ t('welcome') }}</h1>
+        <p>{{ t('description') }}</p>
+        <a href="{{ url_for('posts') }}" class="button">{{ t('posts') }}</a>
+    </div>
+</body>
+</html>

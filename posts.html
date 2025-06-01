@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ t('posts_page') }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .post {
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+        .post h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .post p {
+            color: #444;
+            line-height: 1.6;
+        }
+        .post .meta {
+            font-size: 0.9em;
+            color: #777;
+            margin-bottom: 10px;
+        }
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .lang-switch {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        .lang-switch a {
+            margin-left: 15px;
+            color: #555;
+            text-decoration: underline;
+        }
+        .add-post {
+            display: block;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .add-post a {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .add-post a:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="lang-switch">
+        <a href="{{ url_for('change_lang', lang_code='uk') }}">UA</a>
+        <a href="{{ url_for('change_lang', lang_code='en') }}">EN</a>
+    </div>
+    <div class="container">
+        <nav>
+            <a href="{{ url_for('index') }}">{{ t('home_title') }}</a>
+            {% if user %}
+                <span>{{ t('welcome_user') }} {{ user }}</span>
+                <a href="{{ url_for('logout') }}">{{ t('logout') }}</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">{{ t('login') }}</a>
+                <a href="{{ url_for('register') }}">{{ t('register') }}</a>
+            {% endif %}
+        </nav>
+
+        <h1>{{ t('posts_page') }}</h1>
+
+        {% if user %}
+        <div class="add-post">
+           <a href="{{ url_for('add_post') }}">{{ t('add_post') }}</a>
+        </div>
+        {% endif %}
+
+        {% for post in posts %}
+            <div class="post">
+                <h2>{{ post.title }}</h2>
+                <div class="meta">{{ post.author }} — {{ post.date_created.strftime('%Y-%m-%d %H:%M') }}</div>
+                <p>{{ post.content }}</p>
+            </div>
+        {% else %}
+            <p><em>Поки що немає постів.</em></p>
+        {% endfor %}
+    </div>
+</body>
+</html>

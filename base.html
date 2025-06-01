@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{{ g.lang }}">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Forum{% endblock %}</title>
+</head>
+<body>
+<nav>
+    <a href="{{ url_for('index') }}">{{ g.t.posts }}</a> |
+    {% if session.get('user_id') %}
+        {{ g.t.welcome }}, {{ session.get('username') }}! |
+        <a href="{{ url_for('create_post') }}">{{ g.t.create_post }}</a> |
+        <a href="{{ url_for('logout') }}">{{ g.t.logout }}</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">{{ g.t.login }}</a> |
+        <a href="{{ url_for('register') }}">{{ g.t.register }}</a>
+    {% endif %}
+    <span style="float:right;">
+        <a href="{{ url_for('set_language', lang='ua') }}">Українська</a> | 
+        <a href="{{ url_for('set_language', lang='en') }}">English</a>
+    </span>
+</nav>
+<hr>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul style="color:red;">
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% block content %}{% endblock %}
+</body>
+</html>

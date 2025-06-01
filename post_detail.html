@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            line-height: 1.6;
+            color: #555;
+        }
+        .comment {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f1f1f1;
+            border-left: 3px solid #007BFF;
+        }
+        .comment strong {
+            color: #007BFF;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .login-prompt {
+            margin-top: 20px;
+        }
+        .lang-switch {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        .lang-switch a {
+            margin-left: 15px;
+            color: #555;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="lang-switch">
+        <a href="{{ url_for('change_lang', lang_code='uk') }}">UA</a>
+        <a href="{{ url_for('change_lang', lang_code='en') }}">EN</a>
+    </div>
+    <div class="container">
+        <h2>{{ post.title }}</h2>
+        <p><em>{{ post.author }} — {{ post.date_created.strftime('%Y-%m-%d %H:%M') }}</em></p>
+        <p>{{ post.content }}</p>
+        <hr>
+
+        <h3>{{ t('comments') }}:</h3>
+        {% for comment in comments %}
+            <div class="comment">
+                <p><strong>{{ comment.user.username }}</strong> {{ comment.timestamp.strftime('%Y-%m-%d %H:%M') }}</p>
+                <p>{{ comment.content }}</p>
+            </div>
+        {% else %}
+            <p><em>{{ t('no_comments_yet') }}</em></p>
+        {% endfor %}
+
+        {% if user %}
+            <form method="POST">
+                <textarea name="content" placeholder="{{ t('comment_placeholder') }}" required></textarea>
+                <button type="submit">{{ t('add_comment') }}</button>
+            </form>
+        {% else %}
+            <p class="login-prompt">
+                <a href="{{ url_for('login') }}">{{ t('login') }}</a>, {{ t('to_comment') }}.
+            </p>
+        {% endif %}
+    </div>
+</body>
+</html>

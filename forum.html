@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Форум{% endblock %}
+
+{% block content %}
+    <h1>Вітаємо, {{ username }}!</h1>
+    <h2>Тематика форуму</h2>
+    {% if topics %}
+        <ul>
+            {% for topic in topics %}
+                <li>
+                    <strong>{{ topic['title'] }}</strong><br>
+                    <small>{{ topic['description'] or '' }}</small><br>
+                    Автор: {{ topic['author'] or 'Невідомо' }}, останній допис: {{ topic['last_post_date'] or 'не вказано' }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Тем немає.</p>
+    {% endif %}
+{% endblock %}

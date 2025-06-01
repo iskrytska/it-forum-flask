@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ t('add_post') }}</title>
+</head>
+<body>
+    <h1>{{ t('add_post') }}</h1>
+    <form method="POST">
+        <input type="text" name="title" placeholder="{{ t('post_title') }}" required><br>
+        <textarea name="content" placeholder="{{ t('post_content') }}" required></textarea><br>
+        <button type="submit">{{ t('submit') }}</button>
+    </form>
+    <a href="{{ url_for('posts') }}">← {{ t('posts_page') }}</a>
+</body>
+</html>
